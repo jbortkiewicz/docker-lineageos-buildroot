@@ -32,3 +32,10 @@ RUN apt-get update && apt-get install -y \
 	xsltproc \
 	zip \
 	zlib1g-dev
+	
+RUN     useradd -m -u 1000 lineage 
+
+VOLUME /home/lineage
+WORKDIR /home/lineage
+USER lineage
+ENTRYPOINT ["/bin/bash"]
