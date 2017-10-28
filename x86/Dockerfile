@@ -1,41 +1,47 @@
 FROM ubuntu:xenial
 
-RUN apt-get update && apt-get install -y \
-	bc \
-	bison \
-	build-essential \
-	curl \
-	flex \
-	g++-multilib \
-	gcc-multilib \
-	git \
-	gnupg \
-	gperf \
-	imagemagick \
-	lib32ncurses5-dev \
-	lib32readline-dev \
-	lib32z1-dev \
-	libesd0-dev \
-	liblz4-tool \
-	libncurses5-dev \
-	libsdl1.2-dev \
-	libssl-dev \
-	libwxgtk3.0-dev \
-	libxml2 \
-	libxml2-utils \
-	lzop \
-	pngcrush \
-	repo \
-	rsync \
-	schedtool \
-	squashfs-tools \
-	xsltproc \
-	zip \
-	zlib1g-dev
-	
-RUN     useradd -m -u 1000 lineage 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        bc \
+        bison \
+        build-essential \
+        curl \
+        flex \
+        g++-multilib \
+        gcc-multilib \
+        git \
+        gnupg \
+        gperf \
+        imagemagick \
+        lib32ncurses5-dev \
+        lib32readline-dev \
+        lib32z1-dev \
+        libesd0-dev \
+        liblz4-tool \
+        libncurses5-dev \
+        libsdl1.2-dev \
+        libssl-dev \
+        libwxgtk3.0-dev \
+        libxml2 \
+        libxml2-utils \
+        lzop \
+        openjdk-8-jdk \
+        pngcrush \
+        repo \
+        rsync \
+        schedtool \
+        squashfs-tools \
+        xsltproc \
+        zip \
+        zlib1g-dev
 
-VOLUME /home/lineage
-WORKDIR /home/lineage
+ENV ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
+ENV CCACHE_COMPRESS=1
+ENV USE_CCACHE=1
+ENV CCACHE_DIR=/var/ccache
+
+RUN     useradd -m -u 1000 lineage
+
+VOLUME /var/lineage
+WORKDIR /var/lineage
 USER lineage
 ENTRYPOINT ["/bin/bash"]
