@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         schedtool \
         squashfs-tools \
         xsltproc \
+        unzip \
         zip \
         zlib1g-dev
 
@@ -42,6 +43,10 @@ ENV CCACHE_DIR=/var/ccache
 RUN     useradd -m -u 1000 lineage
 
 VOLUME /var/lineage
+VOLUME /var/ccache
+
 WORKDIR /var/lineage
-USER lineage
+ENV USER=lineage
+USER ${USER}
+
 ENTRYPOINT ["/bin/bash"]
