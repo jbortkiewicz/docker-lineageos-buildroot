@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         bison \
         build-essential \
         curl \
+	e2tools \
         flex \
         g++-multilib \
         gcc-multilib \
@@ -31,17 +32,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         schedtool \
         squashfs-tools \
         xsltproc \
+	unzip \
         zip \
         zlib1g-dev
 
 ENV ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
 ENV CCACHE_COMPRESS=1
 ENV USE_CCACHE=1
-ENV CCACHE_DIR=/var/ccache
+ENV CCACHE_DIR=/var/lineage/ccache
+ENV USER=builder
 
-RUN     useradd -m -u 1000 lineage
+RUN     useradd -m -u 1000 ${USER}
 
 VOLUME /var/lineage
 WORKDIR /var/lineage
-USER lineage
+USER ${USER}
+
 ENTRYPOINT ["/bin/bash"]
